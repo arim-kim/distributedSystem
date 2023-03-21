@@ -33,19 +33,21 @@ int main(int argc, char *argv[]) {
 
 
 	struct sockaddr_in cli_addr;
-  int cli_addr_len = sizeof(cli_addr);
+  	int cli_addr_len = sizeof(cli_addr);
 
 	int  maxlen = 1024;
 	int n = 0;
 	char RecvBuffer[maxlen];
 
 	while (1) {
-		/*  Put recvfrom() here */
+		n = recvfrom(sock, &RecvBuffer, sizeof(RecvBuffer), 0, 
+(struct sockaddr*)&(cli_addr),&cli_addr_len); 
 		if (n > 0) {
 			RecvBuffer[n] = '\0'; // Null-terminate the received string
 			printf("%s", RecvBuffer);
 
-			/*  Put sendto() here */
+			sendto(sock, &RecvBuffer, sizeof(RecvBuffer), 0, 
+(struct sockaddr*)&(cli_addr), sizeof(cli_addr)); 
 		}
 	}
 	close(sock);

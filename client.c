@@ -54,10 +54,12 @@ int main(int argc, char *argv[]) {
 
 	while(1){
 		if ( readline(0, SendBuffer, maxlen) > 0 ){
-			/*  Put sendto() here */
+			sendto(sock, &SendBuffer, sizeof(SendBuffer), 0, 
+(struct sockaddr *)&(srv_addr), sizeof(srv_addr)); 
 		}
 
-    /*  Put recvfrom() here */
+   		n = recvfrom(sock, &RecvBuffer, sizeof(RecvBuffer), 0, 
+(struct sockaddr*)&(cli_addr), &cli_addr_len); 
 		if (n > 0) {
 			RecvBuffer[n] = '\0'; // Null
 			printf("%s", RecvBuffer);
