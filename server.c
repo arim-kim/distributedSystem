@@ -41,7 +41,7 @@ int main(int argc, char *argv[]) {
 
 	while (1) {
 		n = recvfrom(sock, &RecvBuffer, sizeof(RecvBuffer), 0, 
-(struct sockaddr*)&(cli_addr),&cli_addr_len); 
+(struct sockaddr*)&(cli_addr),(socklen_t*) &cli_addr_len); 
 		if (n > 0) {
 			RecvBuffer[n] = '\0'; // Null-terminate the received string
 			printf("%s", RecvBuffer);
